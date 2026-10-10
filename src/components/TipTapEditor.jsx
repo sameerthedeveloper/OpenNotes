@@ -428,7 +428,7 @@ export const TipTapEditor = ({
         <ToolbarButton label="Code Block" active={editor.isActive("codeBlock")} onClick={() => editor.chain().focus().toggleCodeBlock().run()}>
           <CodeIcon className="size-4" />
         </ToolbarButton>
-        <ToolbarButton label="AI Prompt Builder" onClick={() => setPromptModalOpen(true)}>
+        <ToolbarButton label="AI Assistant (generate with Puter)" onClick={() => setPromptModalOpen(true)}>
           <Sparkles className="size-4 text-primary" />
         </ToolbarButton>
 

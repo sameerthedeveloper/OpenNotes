@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Sparkles, Copy, Check, ArrowRightToLine } from "lucide-react";
+import { useRef, useState } from "react";
+import { Sparkles, Copy, Check, ArrowRightToLine, Loader2, Wand2 } from "lucide-react";
 import { toast } from "sonner";
 import {
   Dialog,
@@ -22,6 +22,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { generateNoteContent, PUTER_MODELS } from "@/lib/puter";
+import { convertMarkdownToSanitizedHtml } from "@/utils/markdownToHtml";
 
 const PRESET_TEMPLATES = [
   {
@@ -74,6 +76,11 @@ export default function PromptBuilderModal({ open, onClose, onInsertIntoEditor }
   const [outputFormat, setOutputFormat] = useState("HTML Rich Text");
   const [customInstructions, setCustomInstructions] = useState("");
   const [copied, setCopied] = useState(false);
+  const [model, setModel] = useState("auto");
+  const [generating, setGenerating] = useState(false);
+  const [result, setResult] = useState("");
+  const [view, setView] = useState("prompt");
+  const cancelled = useRef(false);
 
   const activePreset = PRESET_TEMPLATES.find((t) => t.id === selectedTemplate) || PRESET_TEMPLATES[0];
 
@@ -100,7 +107,51 @@ Please generate clean, structured content ready for note taking.`;
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleGenerate = async () => {
+    if (!topic.trim()) {
+      toast.error("Enter a topic first");
+      return;
+    }
+    cancelled.current = false;
+    setGenerating(true);
+    setResult("");
+    setView("result");
+    try {
+      const html = outputFormat === "HTML Rich Text";
+      const text = await generateNoteContent({
+        prompt: generatedPrompt,
+        model,
+        html,
+        onChunk: setResult,
+        isCancelled: () => cancelled.current,
+      });
+      if (!cancelled.current) setResult(text);
+    } catch (err) {
+      toast.error(err?.message || "AI generation failed");
+      setView("prompt");
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  const handleCopyResult = () => {
+    navigator.clipboard.writeText(result);
+    toast.success("Result copied to clipboard!");
+  };
+
+  const handleClose = () => {
+    cancelled.current = true;
+    setGenerating(false);
+    onClose?.();
+  };
+
   const handleInsert = () => {
+    if (onInsertIntoEditor && result) {
+      onInsertIntoEditor(convertMarkdownToSanitizedHtml(result));
+      toast.success("Generated content inserted!");
+      handleClose();
+      return;
+    }
     if (onInsertIntoEditor) {
       const htmlToInsert = `
         <div class="callout callout-info">
@@ -113,16 +164,16 @@ Please generate clean, structured content ready for note taking.`;
     } else {
       handleCopy();
     }
-    onClose?.();
+    handleClose();
   };
 
   return (
-    <Dialog open={open} onOpenChange={(next) => !next && onClose?.()}>
+    <Dialog open={open} onOpenChange={(next) => !next && handleClose()}>
       <DialogContent className="sm:max-w-3xl p-5">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Sparkles className="text-primary" />
-            AI Prompt Builder
+            AI Note Generator
           </DialogTitle>
         </DialogHeader>
 
@@ -181,27 +232,57 @@ Please generate clean, structured content ready for note taking.`;
               value={customInstructions}
               onChange={(e) => setCustomInstructions(e.target.value)}
             />
+
+            <Select value={model} onValueChange={setModel}>
+              <SelectTrigger className="w-full" aria-label="AI model">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {PUTER_MODELS.map((m) => (
+                  <SelectItem key={m.value} value={m.value}>
+                    {m.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="ui-label normal-case tracking-normal">
+              Powered by Puter.js — sign in once, no API key needed.
+            </p>
           </div>
 
           <div className="flex flex-col gap-2">
-            <p className="text-xs font-bold text-muted-foreground">2. Generated Prompt Preview</p>
-            <pre className="max-h-80 flex-1 overflow-y-auto ui-card bg-muted p-3 font-mono text-[13px] whitespace-pre-wrap">
-              {generatedPrompt}
+            <div className="ui-seg w-fit p-0.5" role="group" aria-label="Preview">
+              <button type="button" className="ui-seg-item" aria-pressed={view === "prompt"} onClick={() => setView("prompt")}>
+                Prompt
+              </button>
+              <button type="button" className="ui-seg-item" aria-pressed={view === "result"} onClick={() => setView("result")}>
+                {generating && <Loader2 className="size-3.5 animate-spin" />}
+                Result
+              </button>
+            </div>
+            <pre className="ui-card max-h-80 flex-1 overflow-y-auto bg-black/[0.03] p-3 font-mono text-[13px] whitespace-pre-wrap">
+              {view === "prompt"
+                ? generatedPrompt
+                : result || (generating ? "Generating…" : "Press Generate to write this note with AI.")}
             </pre>
           </div>
         </div>
 
         <DialogFooter className="sm:justify-between">
-          <Button variant="outline" onClick={handleCopy}>
+          <Button variant="ghost" onClick={handleCopy}>
             {copied ? <Check /> : <Copy />}
-            {copied ? "Copied!" : "Copy to Clipboard"}
+            {copied ? "Copied!" : "Copy Prompt"}
           </Button>
 
           <div className="flex gap-2">
-            <Button variant="ghost" onClick={onClose}>Cancel</Button>
-            <Button onClick={handleInsert}>
-              {onInsertIntoEditor ? <ArrowRightToLine /> : <Sparkles />}
-              {onInsertIntoEditor ? "Insert into Editor" : "Use Prompt"}
+            <Button variant="ghost" onClick={handleClose}>Cancel</Button>
+            <Button variant="outline" onClick={handleGenerate} disabled={generating}>
+              {generating ? <Loader2 className="animate-spin" /> : <Wand2 />}
+              {generating ? "Generating" : result ? "Regenerate" : "Generate"}
+            </Button>
+            <Button onClick={result && !onInsertIntoEditor ? handleCopyResult : handleInsert} disabled={generating}>
+              {onInsertIntoEditor ? <ArrowRightToLine /> : result ? <Copy /> : <Sparkles />}
+              {onInsertIntoEditor ? "Insert into Editor" : result ? "Copy Result" : "Use Prompt"}
             </Button>
           </div>
         </DialogFooter>
