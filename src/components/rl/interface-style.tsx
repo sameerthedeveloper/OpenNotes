@@ -16,20 +16,24 @@ export const interfaceStyleScript = `try{var u=localStorage.getItem("${UI_STYLE_
  * `persist` is the hook point for saving to the user's account
  * (e.g. an updateDoc on users/{uid}.interfaceStyle).
  */
-export function useInterfaceStyle(persist?: (v: InterfaceStyle) => void) {
-  const [style, setStyle] = React.useState<InterfaceStyle>("modern");
+const listeners = new Set<() => void>();
+const subscribe = (cb: () => void) => {
+  listeners.add(cb);
+  return () => void listeners.delete(cb);
+};
+const read = (): InterfaceStyle =>
+  document.documentElement.dataset.ui === "classic" ? "classic" : "modern";
 
-  React.useEffect(() => {
-    setStyle(document.documentElement.dataset.ui === "classic" ? "classic" : "modern");
-  }, []);
+export function useInterfaceStyle(persist?: (v: InterfaceStyle) => void) {
+  const style = React.useSyncExternalStore<InterfaceStyle>(subscribe, read, () => "modern");
 
   const update = React.useCallback(
     (v: InterfaceStyle) => {
-      setStyle(v);
       document.documentElement.dataset.ui = v;
       try {
         localStorage.setItem(UI_STYLE_KEY, v);
       } catch {}
+      listeners.forEach((l) => l());
       persist?.(v);
     },
     [persist],

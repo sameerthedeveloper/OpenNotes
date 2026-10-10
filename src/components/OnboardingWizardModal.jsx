@@ -71,7 +71,7 @@ export default function OnboardingWizardModal() {
   const doneCount = doneSteps.size;
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 w-72 overflow-hidden rounded-2xl border border-border bg-card shadow-xl sm:right-6 sm:bottom-6">
+    <div className="fixed right-4 bottom-4 z-50 w-72 overflow-hidden ui-menu sm:right-6 sm:bottom-6">
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <div>
           <p className="text-sm font-bold">Get started</p>

@@ -36,27 +36,27 @@ const ProfilePage = () => {
   return (
     <div className="mx-auto w-full max-w-4xl">
       <div className="mb-8">
-        <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Settings</h1>
+        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">Settings</h1>
         <p className="mt-1 font-medium text-muted-foreground">
           Customize your workspace and personal preferences.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-        <div className="flex flex-col items-center rounded-2xl border border-border bg-primary/2 p-6 text-center">
-          <Avatar className="mb-4 size-32 text-4xl font-extrabold">
+        <div className="flex flex-col items-center ui-card bg-primary/2 p-6 text-center">
+          <Avatar className="mb-4 size-32 text-4xl font-bold">
             <AvatarImage src={currentUser?.photoURL || undefined} />
             <AvatarFallback className="bg-muted text-foreground">
               {currentUser?.displayName?.charAt(0) || "U"}
             </AvatarFallback>
           </Avatar>
-          <p className="text-lg font-extrabold tracking-tight">{currentUser?.displayName}</p>
+          <p className="text-lg font-bold tracking-tight">{currentUser?.displayName}</p>
           <p className="mt-0.5 text-sm text-muted-foreground">{currentUser?.email}</p>
         </div>
 
         <div className="md:col-span-2">
-          <div className="rounded-2xl border border-border p-6">
-            <h2 className="mb-1 text-lg font-extrabold">Account Details</h2>
+          <div className="ui-card p-6">
+            <h2 className="mb-1 text-lg font-bold">Account Details</h2>
             <p className="mb-6 text-sm text-muted-foreground">
               Update how your name appears in shared notes and notifications.
             </p>
@@ -99,7 +99,7 @@ const ProfilePage = () => {
           </div>
 
           <div className="mt-4 rounded-2xl border border-destructive/20 bg-destructive/2 p-6">
-            <h2 className="mb-1 text-lg font-extrabold text-destructive">Deactivate Space</h2>
+            <h2 className="mb-1 text-lg font-bold text-destructive">Deactivate Space</h2>
             <p className="mb-4 text-sm text-muted-foreground">
               Permanently delete your member account and all of your personal notes.
             </p>

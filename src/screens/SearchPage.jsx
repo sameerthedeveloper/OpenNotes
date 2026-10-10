@@ -49,7 +49,7 @@ export const SearchPage = () => {
 
   return (
     <div className="w-full">
-      <h1 className="mb-1 text-2xl font-extrabold tracking-tight sm:text-3xl">HTML Content Search</h1>
+      <h1 className="mb-1 text-2xl font-bold tracking-tight sm:text-3xl">HTML Content Search</h1>
       <p className="mb-6 text-muted-foreground">
         Search inside document titles, tags, and raw rich text content.
       </p>
@@ -85,7 +85,7 @@ export const SearchPage = () => {
           ))}
         </div>
       ) : results.length === 0 ? (
-        <div className="rounded-2xl border border-border p-12 text-center">
+        <div className="ui-card p-12 text-center">
           <h3 className="text-lg font-bold">No matching notes found</h3>
           <p className="text-sm text-muted-foreground">Try a different search term or check spelling.</p>
         </div>

@@ -102,7 +102,7 @@ const LoginPage = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-1">
-        <h1 className="text-xl font-extrabold tracking-tight text-foreground">
+        <h1 className="text-xl font-bold tracking-tight text-foreground">
           Welcome back
         </h1>
         <p className="text-sm font-medium text-muted-foreground">
@@ -232,7 +232,7 @@ const LoginPage = () => {
         Don&apos;t have an account?{" "}
         <Link
           href={`/signup?from=${encodeURIComponent(from)}`}
-          className="font-extrabold text-primary hover:underline"
+          className="font-bold text-primary hover:underline"
         >
           Create account
         </Link>

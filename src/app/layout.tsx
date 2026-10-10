@@ -84,7 +84,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 <AuthProvider>
                   <MonetizationProvider>
                     <TooltipProvider>
-                      <Toaster position="top-right" richColors />
+                      <Toaster />
                       {children}
                       <ScrollToTopButton />
                     </TooltipProvider>

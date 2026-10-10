@@ -185,7 +185,7 @@ Please generate clean, structured content ready for note taking.`;
 
           <div className="flex flex-col gap-2">
             <p className="text-xs font-bold text-muted-foreground">2. Generated Prompt Preview</p>
-            <pre className="max-h-80 flex-1 overflow-y-auto rounded-xl border border-border bg-muted p-3 font-mono text-[13px] whitespace-pre-wrap">
+            <pre className="max-h-80 flex-1 overflow-y-auto ui-card bg-muted p-3 font-mono text-[13px] whitespace-pre-wrap">
               {generatedPrompt}
             </pre>
           </div>

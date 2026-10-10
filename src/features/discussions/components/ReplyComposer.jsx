@@ -48,7 +48,7 @@ const ReplyComposer = ({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl border border-border bg-card p-4">
+    <form onSubmit={handleSubmit} className="ui-card p-4">
       {parentReplyAuthor && (
         <div className="mb-3 flex items-center gap-1.5">
           <Badge variant="outline" className="gap-1.5 font-semibold text-primary">

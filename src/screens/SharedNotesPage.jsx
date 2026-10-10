@@ -36,7 +36,7 @@ export const SharedNotesPage = () => {
   return (
     <div className="w-full">
       <div className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Shared &amp; Public Notes</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Shared &amp; Public Notes</h1>
         <p className="text-muted-foreground">
           Explore notes published publicly by the OpenNotes community.
         </p>
@@ -59,7 +59,7 @@ export const SharedNotesPage = () => {
           ))}
         </div>
       ) : filteredNotes.length === 0 ? (
-        <div className="rounded-2xl border border-border p-12 text-center">
+        <div className="ui-card p-12 text-center">
           <Share2 className="mx-auto mb-3 size-12 text-muted-foreground/40" />
           <h3 className="text-lg font-bold">No public notes found</h3>
           <p className="text-sm text-muted-foreground">Publish a note to web to see it showcased here!</p>

@@ -140,7 +140,7 @@ const SignupPage = () => {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-1">
-        <h1 className="text-xl font-extrabold tracking-tight text-foreground">
+        <h1 className="text-xl font-bold tracking-tight text-foreground">
           Create your account
         </h1>
         <p className="text-sm font-medium text-muted-foreground">
@@ -333,7 +333,7 @@ const SignupPage = () => {
         Already have an account?{" "}
         <Link
           href={`/login?from=${encodeURIComponent(from)}`}
-          className="font-extrabold text-primary hover:underline"
+          className="font-bold text-primary hover:underline"
         >
           Sign in
         </Link>

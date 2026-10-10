@@ -5,7 +5,7 @@
 @import "../styles/record-lab.css";
 @config "../../tailwind.config.ts";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is([data-ui="classic"].dark *));
 
 @theme inline {
   --color-background: var(--background);

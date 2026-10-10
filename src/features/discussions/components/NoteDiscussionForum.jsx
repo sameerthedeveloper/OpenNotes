@@ -81,7 +81,7 @@ export const NoteDiscussionForum = ({ noteId, noteAuthorId }) => {
         <div>
           <div className="mb-1 flex items-center gap-2">
             <MessageSquare className="size-7 text-primary" />
-            <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">Discussion Forum</h2>
+            <h2 className="text-xl font-bold tracking-tight sm:text-2xl">Discussion Forum</h2>
           </div>
           <p className="text-sm text-muted-foreground">
             Ask questions, share insights, collaborate, and learn together.
@@ -128,7 +128,7 @@ export const NoteDiscussionForum = ({ noteId, noteAuthorId }) => {
           <Loader2 className="size-8 animate-spin text-muted-foreground" />
         </div>
       ) : filteredTopics.length === 0 ? (
-        <div className="rounded-2xl border border-border bg-card p-12 text-center">
+        <div className="ui-card p-12 text-center">
           <HelpCircle className="mx-auto mb-3 size-11 text-muted-foreground/40" />
           <h3 className="text-lg font-bold">No discussions found</h3>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -145,7 +145,7 @@ export const NoteDiscussionForum = ({ noteId, noteAuthorId }) => {
               key={topic.id}
               onClick={() => setSelectedTopic(topic)}
               className={cn(
-                "rounded-2xl border bg-card p-4 text-left transition-all hover:border-primary/50 hover:shadow-sm",
+                "ui-card p-4 text-left transition-all duration-200 hover:-translate-y-0.5",
                 topic.isPinned ? "border-l-4 border-l-primary" : topic.isSolved ? "border-l-4 border-l-emerald-500" : "border-border"
               )}
             >

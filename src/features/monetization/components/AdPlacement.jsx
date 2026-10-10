@@ -61,7 +61,7 @@ export const AdPlacement = ({
 
   return (
     <>
-      <div className="relative my-5 overflow-hidden rounded-2xl border border-border bg-muted/40 p-4 text-center">
+      <div className="relative my-5 overflow-hidden ui-card bg-muted/40 p-4 text-center">
         <div className="mb-2 flex items-center justify-between">
           <span className="text-[11px] font-bold tracking-widest text-muted-foreground/70">
             SPONSORED ADVERTISEMENT

@@ -32,7 +32,7 @@ export function TabBar({
     };
   }, []);
 
-  const index = Math.max(0, tabs.findIndex((t) => t.value === value));
+  const index = tabs.findIndex((t) => t.value === value);
 
   return (
     <nav
@@ -40,8 +40,8 @@ export function TabBar({
       hidden={typing}
       className="fixed inset-x-0 bottom-[max(6px,calc(env(safe-area-inset-bottom)-14px))] z-40 mx-auto w-[min(22rem,calc(100%-2rem))] md:hidden"
     >
-      <div className="ui-tabbar" style={{ "--tab-index": index } as React.CSSProperties}>
-        <span className="ui-tabbar-lens" aria-hidden />
+      <div className="ui-tabbar" style={{ "--tab-index": Math.max(0, index) } as React.CSSProperties}>
+        {index >= 0 && <span className="ui-tabbar-lens" aria-hidden />}
         {tabs.map((t) => (
           <button
             key={t.value}

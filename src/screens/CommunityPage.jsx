@@ -119,7 +119,7 @@ export const CommunityPage = () => {
       <div className="mb-6">
         <div className="mb-1 flex items-center gap-2.5">
           <MessageSquare className="size-9 text-primary" />
-          <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Community Hub</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Community Hub</h1>
         </div>
         <p className="text-muted-foreground">
           Connect with learners worldwide through global forums, live group chat, and study communities.
@@ -189,7 +189,7 @@ export const CommunityPage = () => {
               <Loader2 className="size-9 animate-spin text-muted-foreground" />
             </div>
           ) : filteredTopics.length === 0 ? (
-            <div className="rounded-2xl border border-border p-12 text-center">
+            <div className="ui-card p-12 text-center">
               <MessageSquare className="mx-auto mb-3 size-12 text-muted-foreground/40" />
               <h3 className="text-lg font-bold">No community topics yet</h3>
               <p className="mb-4 text-sm text-muted-foreground">
@@ -206,7 +206,7 @@ export const CommunityPage = () => {
                   key={topic.id}
                   onClick={() => setSelectedTopic(topic)}
                   className={cn(
-                    "rounded-2xl border bg-card p-4 text-left transition-all hover:border-primary/50 hover:shadow-sm",
+                    "ui-card p-4 text-left transition-all duration-200 hover:-translate-y-0.5",
                     topic.isPinned ? "border-l-4 border-l-primary" : topic.isSolved ? "border-l-4 border-l-emerald-500" : "border-border"
                   )}
                 >
@@ -285,7 +285,7 @@ export const CommunityPage = () => {
                     <Icon className="size-9 text-primary" />
                     <Badge variant="outline" className="font-semibold text-primary">{group.tag}</Badge>
                   </div>
-                  <h3 className="mb-1.5 text-lg font-extrabold">{group.title}</h3>
+                  <h3 className="mb-1.5 text-lg font-bold">{group.title}</h3>
                   <p className="mb-4 text-sm text-muted-foreground">{group.description}</p>
                 </div>
 

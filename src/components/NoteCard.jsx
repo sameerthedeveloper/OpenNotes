@@ -38,7 +38,7 @@ export const NoteCard = ({ note, onDelete, onClick, onTogglePin, onToggleFavorit
   return (
     <Card
       className={cn(
-        "group h-full w-full overflow-hidden rounded-2xl transition-all duration-200 hover:-translate-y-0.75 hover:shadow-lg",
+        "group h-full w-full overflow-hidden transition-all duration-200 hover:-translate-y-0.75",
         isPinned ? "border-primary" : "border-border"
       )}
     >

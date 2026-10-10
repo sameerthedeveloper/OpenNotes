@@ -124,7 +124,7 @@ export const AdminPanelPage = () => {
     <div className="w-full">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Platform Control Center (Super Admin)</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Platform Control Center (Super Admin)</h1>
           <p className="text-muted-foreground">
             Manage real-time feature flags, monetization approvals, system status, and batch migrations.
           </p>
@@ -136,7 +136,7 @@ export const AdminPanelPage = () => {
       </div>
 
       {migrating && (
-        <div className="mb-6 rounded-2xl border border-border p-4">
+        <div className="mb-6 ui-card p-4">
           <p className="mb-2 text-sm font-bold">{progress.msg || "Migrating Firestore records..."}</p>
           <Progress value={progress.total ? (progress.current / progress.total) * 100 : 0} />
         </div>
@@ -160,7 +160,7 @@ export const AdminPanelPage = () => {
 
         <TabsContent value="flags">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-border p-6">
+            <div className="ui-card p-6">
               <div className="mb-3 flex items-center gap-2">
                 <ShieldCheck className="size-5 text-primary" />
                 <h3 className="font-bold">General &amp; Maintenance Mode</h3>
@@ -180,7 +180,7 @@ export const AdminPanelPage = () => {
               />
             </div>
 
-            <div className="rounded-2xl border border-border p-6">
+            <div className="ui-card p-6">
               <div className="mb-3 flex items-center gap-2">
                 <DollarSign className="size-5 text-muted-foreground" />
                 <h3 className="font-bold">Global Advertising Controls</h3>
@@ -200,7 +200,7 @@ export const AdminPanelPage = () => {
               />
             </div>
 
-            <div className="rounded-2xl border border-border p-6">
+            <div className="ui-card p-6">
               <div className="mb-3 flex items-center gap-2">
                 <Sparkles className="size-5 text-muted-foreground" />
                 <h3 className="font-bold">AI Assistant &amp; Smart Tools</h3>
@@ -214,7 +214,7 @@ export const AdminPanelPage = () => {
               />
             </div>
 
-            <div className="rounded-2xl border border-border p-6">
+            <div className="ui-card p-6">
               <div className="mb-3 flex items-center gap-2">
                 <WifiOff className="size-5 text-muted-foreground" />
                 <h3 className="font-bold">Offline Mode &amp; Sync Controls</h3>
@@ -231,7 +231,7 @@ export const AdminPanelPage = () => {
         </TabsContent>
 
         <TabsContent value="approvals">
-          <div className="rounded-2xl border border-border p-4">
+          <div className="ui-card p-4">
             <h3 className="mb-3 px-1 font-bold">Creator Monetization Verifications</h3>
             <Table>
               <TableHeader>
@@ -290,21 +290,21 @@ export const AdminPanelPage = () => {
 
         <TabsContent value="stats">
           <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <div className="rounded-2xl border border-border p-4">
+            <div className="ui-card p-4">
               <p className="text-sm font-semibold text-muted-foreground">Total Database Notes</p>
-              <p className="text-3xl font-extrabold text-primary">{stats.totalNotes}</p>
+              <p className="text-3xl font-bold text-primary">{stats.totalNotes}</p>
             </div>
-            <div className="rounded-2xl border border-border p-4">
+            <div className="ui-card p-4">
               <p className="text-sm font-semibold text-muted-foreground">HTML Clean Notes</p>
-              <p className="text-3xl font-extrabold text-foreground">{stats.htmlMigrated}</p>
+              <p className="text-3xl font-bold text-foreground">{stats.htmlMigrated}</p>
             </div>
-            <div className="rounded-2xl border border-border p-4">
+            <div className="ui-card p-4">
               <p className="text-sm font-semibold text-muted-foreground">Public Shared Notes</p>
-              <p className="text-3xl font-extrabold text-foreground">{stats.publicNotes}</p>
+              <p className="text-3xl font-bold text-foreground">{stats.publicNotes}</p>
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border p-4">
+          <div className="ui-card p-4">
             <h3 className="mb-3 px-1 font-bold">Firestore Document Records</h3>
             <Table>
               <TableHeader>

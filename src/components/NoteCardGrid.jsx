@@ -150,7 +150,7 @@ export const NoteCardGrid = ({
 
   if (!notes || notes.length === 0) {
     return (
-      <div className="my-2 w-full rounded-2xl border border-border bg-card p-12 text-center">
+      <div className="my-2 w-full ui-card p-12 text-center">
         <NotebookText className="mx-auto mb-3 size-14 text-muted-foreground/40" />
         <h3 className="text-lg font-bold">{emptyMessage}</h3>
         <p className="mx-auto mb-6 max-w-sm text-sm text-muted-foreground">
@@ -176,7 +176,7 @@ export const NoteCardGrid = ({
 
   if (viewMode === "list") {
     return (
-      <div ref={gridRef} className="mt-1 mb-2 w-full divide-y divide-border rounded-2xl border border-border bg-card">
+      <div ref={gridRef} className="mt-1 mb-2 w-full divide-y divide-border ui-card">
         {notes.map((note) => (
           <NoteListRow
             key={note.id}

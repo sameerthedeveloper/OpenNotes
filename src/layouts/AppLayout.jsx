@@ -12,8 +12,6 @@ import {
   Notebook,
   User,
   LogOut,
-  Moon,
-  Sun,
   Search,
   Bookmark,
   Settings,
@@ -29,6 +27,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { TabBar } from "@/components/rl";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -54,20 +53,17 @@ import {
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import PromptBuilderModal from "@/components/PromptBuilderModal";
 import OnboardingWizardModal from "@/components/OnboardingWizardModal";
+import InterfaceStyleSync from "@/components/InterfaceStyleSync";
 import { useAuth } from "@/context/AuthContext";
-import { useAppTheme } from "@/context/ThemeContext";
 import { useNetworkStatus } from "@/utils/offlineSyncManager";
 import { usePlatformSettings } from "@/context/PlatformSettingsContext";
 import { isSuperAdmin } from "@/config/adminConfig";
 import { cn } from "@/lib/utils";
 
-const BOTTOM_NAV_ITEMS = [
-  { label: "Home", icon: LayoutDashboard, path: "/dashboard" },
-  { label: "Notes", icon: Notebook, path: "/notes" },
-  { label: "Discover", icon: Compass, path: "/discover" },
-  { label: "Bookmarks", icon: Bookmark, path: "/bookmarks" },
-  { label: "Search", icon: Search, path: "/search" },
-  { label: "Menu", icon: MenuIcon, action: "menu" },
+const MOBILE_TABS = [
+  { value: "/dashboard", label: "Home", Icon: LayoutDashboard },
+  { value: "/notes", label: "Notes", Icon: Notebook },
+  { value: "/discover", label: "Discover", Icon: Compass },
 ];
 
 function useNavGroups() {
@@ -106,11 +102,8 @@ function NavList({ items, pathname, onNavigate, collapsed }) {
         const Icon = item.icon;
 
         const buttonClassName = cn(
-          "relative flex items-center rounded-lg text-left text-sm transition-colors",
-          collapsed ? "size-10 shrink-0 justify-center" : "w-full gap-3 px-3 py-2",
-          isSelected
-            ? "bg-primary/10 font-semibold text-primary"
-            : "font-medium text-muted-foreground hover:bg-muted hover:text-foreground"
+          "ui-nav relative",
+          collapsed && "size-11 shrink-0 justify-center !px-0"
         );
 
         const buttonContent = (
@@ -121,7 +114,7 @@ function NavList({ items, pathname, onNavigate, collapsed }) {
               (collapsed ? (
                 <span className="absolute top-1.5 right-1.5 size-2 rounded-full bg-primary" />
               ) : (
-                <Badge className="h-4 min-w-4 justify-center rounded-full px-1 text-[10px]">
+                <Badge className="h-5 min-w-5 justify-center px-1.5 text-[10px]">
                   {item.badge}
                 </Badge>
               ))}
@@ -134,6 +127,7 @@ function NavList({ items, pathname, onNavigate, collapsed }) {
               key={item.text}
               onClick={() => (item.onClick ? item.onClick() : onNavigate(item.path))}
               className={buttonClassName}
+              aria-current={isSelected ? "page" : undefined}
             >
               {buttonContent}
             </button>
@@ -144,6 +138,7 @@ function NavList({ items, pathname, onNavigate, collapsed }) {
           <button
             onClick={() => (item.onClick ? item.onClick() : onNavigate(item.path))}
             className={buttonClassName}
+            aria-current={isSelected ? "page" : undefined}
           >
             {buttonContent}
           </button>
@@ -162,10 +157,10 @@ function NavList({ items, pathname, onNavigate, collapsed }) {
 
 function NavGroupLabel({ collapsed, children }) {
   if (collapsed) {
-    return <div className="my-2 h-px w-8 self-center bg-border" />;
+    return <div className="my-2 h-px w-8 self-center bg-black/[0.06]" />;
   }
   return (
-    <p className="px-3 pt-4 pb-1 font-mono text-[11px] font-bold tracking-wider text-muted-foreground/70 uppercase">
+    <p className="ui-label px-4 pt-5 pb-1.5">
       {children}
     </p>
   );
@@ -174,8 +169,6 @@ function NavGroupLabel({ collapsed, children }) {
 function SidebarNav({
   currentUser,
   initial,
-  mode,
-  toggleColorMode,
   navGroups,
   pathname,
   onNavigate,
@@ -200,7 +193,7 @@ function SidebarNav({
       {/* Logo + sidebar controls */}
       <div
         className={cn(
-          "flex items-center border-b border-border py-3",
+          "flex items-center border-b border-black/[0.06] py-3",
           collapsed ? "flex-col gap-2 px-2" : "justify-between gap-2 px-3"
         )}
       >
@@ -213,33 +206,17 @@ function SidebarNav({
             className="shrink-0 rounded-md"
           />
           {!collapsed && (
-            <span className="truncate text-base font-extrabold tracking-tight text-foreground">
-              OpenNotes
-            </span>
+            <span className="ui-title truncate text-[19px]">OpenNotes</span>
           )}
         </Link>
         <div className={cn("flex shrink-0 items-center gap-0.5", collapsed && "flex-col")}>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <button
-                onClick={toggleColorMode}
-                aria-label="toggle theme"
-                className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted"
-              >
-                {mode === "dark" ? <Sun className="size-4" /> : <Moon className="size-4" />}
-              </button>
-            </TooltipTrigger>
-            <TooltipContent side={collapsed ? "right" : "bottom"}>
-              {mode === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-            </TooltipContent>
-          </Tooltip>
           {onToggleSidebar && (
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
                   onClick={onToggleSidebar}
                   aria-label={collapsed ? "expand sidebar" : "collapse sidebar"}
-                  className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted"
+                  className="ui-icon-btn !min-h-9 !min-w-9 !p-2"
                 >
                   {collapsed ? <PanelLeftOpen className="size-4" /> : <PanelLeft className="size-4" />}
                 </button>
@@ -259,13 +236,13 @@ function SidebarNav({
             <DropdownMenuTrigger asChild>
               <button
                 className={cn(
-                  "flex w-full items-center border-b border-border text-left hover:bg-muted",
+                  "flex w-full items-center border-b border-black/[0.06] text-left transition-colors duration-200 hover:bg-black/[0.03]",
                   collapsed ? "justify-center py-3" : "gap-2.5 px-3 py-3"
                 )}
               >
                 <Avatar className="size-8 shrink-0">
                   <AvatarImage src={currentUser?.photoURL || undefined} />
-                  <AvatarFallback className="bg-muted text-sm font-bold text-foreground">
+                  <AvatarFallback className="bg-brand-soft text-sm font-bold text-brand-ink">
                     {initial}
                   </AvatarFallback>
                 </Avatar>
@@ -305,14 +282,14 @@ function SidebarNav({
       {/* Search */}
       {!collapsed && (
         <div className="px-2 pt-2">
-          <div className="flex items-center gap-2 rounded-lg bg-muted px-3 focus-within:bg-background focus-within:ring-2 focus-within:ring-ring/40">
+          <div className="flex items-center gap-2 rounded-input bg-black/[0.04] px-3 transition-all duration-200 hover:bg-black/[0.055] focus-within:bg-white focus-within:ring-4 focus-within:ring-brand/15">
             <Search className="size-4 shrink-0 text-muted-foreground" />
             <input
               placeholder="Search notes..."
               value={searchQuery}
               onChange={onSearchChange}
               onKeyDown={onSearchSubmit}
-              className="h-9 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+              className="h-11 w-full bg-transparent text-[16px] outline-none placeholder:text-ink-soft/50 md:text-[15px]"
             />
             {searchQuery && (
               <button
@@ -331,14 +308,14 @@ function SidebarNav({
         {collapsed ? (
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button size="icon" onClick={onCreateNote}>
+              <Button size="icon" aria-label="Create note" onClick={onCreateNote}>
                 <Plus className="size-5" />
               </Button>
             </TooltipTrigger>
             <TooltipContent side="right">Create Note</TooltipContent>
           </Tooltip>
         ) : (
-          <Button className="w-full" onClick={onCreateNote}>
+          <Button className="w-full" size="lg" onClick={onCreateNote}>
             <Plus className="size-5" />
             Create Note
           </Button>
@@ -362,7 +339,7 @@ function SidebarNav({
       </div>
 
       {/* Bottom-pinned: Settings & Help */}
-      <div className={cn("border-t border-border py-2", collapsed && "flex flex-col items-center")}>
+      <div className={cn("border-t border-black/[0.06] py-2", collapsed && "flex flex-col items-center")}>
         <NavList
           items={[{ text: "Settings", icon: Settings, path: "/settings" }]}
           pathname={pathname}
@@ -374,7 +351,7 @@ function SidebarNav({
             <TooltipTrigger asChild>
               <button
                 onClick={onHelp}
-                className="mt-1 flex size-10 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                className="ui-nav mt-1 size-11 shrink-0 justify-center !px-0"
               >
                 <HelpCircle className="size-5 shrink-0" />
               </button>
@@ -385,7 +362,7 @@ function SidebarNav({
           <nav className="flex flex-col gap-1 px-2">
             <button
               onClick={onHelp}
-              className="flex items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="ui-nav"
             >
               <HelpCircle className="size-4.5 shrink-0" />
               Help &amp; Feedback
@@ -399,7 +376,6 @@ function SidebarNav({
 
 const AppLayout = ({ children }) => {
   const { currentUser, logout } = useAuth();
-  const { mode, toggleColorMode } = useAppTheme();
   const { isOnline } = useNetworkStatus();
   const { settings } = usePlatformSettings();
   const router = useRouter();
@@ -443,18 +419,16 @@ const AppLayout = ({ children }) => {
   const initial = currentUser?.displayName?.charAt(0) || "U";
 
   return (
-    <div className="flex min-h-screen w-full bg-background">
+    <div className="app-canvas flex min-h-screen w-full">
       {/* Mobile nav sheet — always shows the full labeled nav */}
       <Sheet open={mobileNavOpen} onOpenChange={setMobileNavOpen}>
-        <SheetContent side="left" className="w-72 p-0">
+        <SheetContent side="left" className="w-72 p-0 data-[side=left]:sm:max-w-72">
           <SheetHeader className="sr-only">
             <SheetTitle>Navigate</SheetTitle>
           </SheetHeader>
           <SidebarNav
             currentUser={currentUser}
             initial={initial}
-            mode={mode}
-            toggleColorMode={toggleColorMode}
             navGroups={navGroups}
             pathname={pathname}
             onNavigate={goTo}
@@ -473,16 +447,13 @@ const AppLayout = ({ children }) => {
       {/* Desktop sidebar — always visible, toggles between full width and icon rail */}
       <aside
         className={cn(
-          "fixed top-0 bottom-0 left-0 z-30 hidden shrink-0 flex-col overflow-hidden border-r border-border bg-background transition-[width] duration-200 md:flex",
-          sidebarCollapsed ? "w-16" : "w-64"
+          "ui-panel fixed top-4 bottom-4 left-4 z-30 hidden shrink-0 flex-col overflow-hidden transition-[width] duration-200 md:flex",
+          sidebarCollapsed ? "w-[4.5rem]" : "w-64"
         )}
-        style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
       >
         <SidebarNav
           currentUser={currentUser}
           initial={initial}
-          mode={mode}
-          toggleColorMode={toggleColorMode}
           navGroups={navGroups}
           pathname={pathname}
           onNavigate={goTo}
@@ -502,9 +473,9 @@ const AppLayout = ({ children }) => {
       {/* Main content */}
       <main
         className={cn(
-          "flex min-h-screen w-full flex-1 flex-col px-3 pt-4 sm:px-6 md:px-8",
+          "flex min-h-screen w-full flex-1 flex-col px-4 pt-4 sm:px-6 md:pr-6",
           isViewingNote ? "pb-6" : "pb-28 md:pb-8",
-          sidebarCollapsed ? "md:pl-16" : "md:pl-64"
+          sidebarCollapsed ? "md:pl-28" : "md:pl-72"
         )}
         style={{ paddingTop: "max(1rem, env(safe-area-inset-top, 0px))" }}
       >
@@ -513,9 +484,9 @@ const AppLayout = ({ children }) => {
           <button
             onClick={() => setMobileNavOpen(true)}
             aria-label="open navigation menu"
-            className="rounded-lg p-2 text-foreground hover:bg-muted"
+            className="ui-icon-btn"
           >
-            <MenuIcon />
+            <MenuIcon className="size-5" />
           </button>
           <Link href="/dashboard" className="flex select-none items-center gap-2">
             <Image
@@ -525,17 +496,15 @@ const AppLayout = ({ children }) => {
               height={28}
               className="rounded-md"
             />
-            <span className="text-base font-extrabold tracking-tight text-foreground">
-              OpenNotes
-            </span>
+            <span className="ui-title text-[19px]">OpenNotes</span>
           </Link>
-          <div className="size-9" />
+          <div className="size-11" />
         </div>
 
         <div className="mx-auto w-full max-w-360">
           {!isOnline && (
-            <div className="mb-5 flex items-center gap-3 rounded-lg border border-amber-300 bg-amber-50 p-3 dark:border-amber-500/30 dark:bg-amber-500/15">
-              <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">
+            <div className="ui-card mb-5 flex items-center gap-3 p-4">
+              <p className="text-sm font-medium text-ink">
                 Offline Mode Active — all note reads, creates, and edits are
                 stored locally and will auto-sync once you&apos;re back
                 online.
@@ -544,7 +513,7 @@ const AppLayout = ({ children }) => {
           )}
 
           {pathnames.length > 0 && (
-            <div className="mb-4 px-10 hidden items-center gap-1.5 text-sm text-muted-foreground md:flex">
+            <div className="ui-label mb-4 hidden items-center gap-1.5 md:flex">
               <button
                 onClick={() => router.push("/dashboard")}
                 className="font-medium hover:text-foreground"
@@ -558,7 +527,7 @@ const AppLayout = ({ children }) => {
                   <span key={to} className="flex items-center gap-1.5">
                     <span>/</span>
                     {last ? (
-                      <span className="font-semibold text-foreground capitalize">
+                      <span className="font-semibold text-ink capitalize">
                         {value}
                       </span>
                     ) : (
@@ -576,8 +545,8 @@ const AppLayout = ({ children }) => {
           )}
 
           {settings?.general?.maintenanceMode && !isSuperAdmin(currentUser) ? (
-            <div className="my-4 rounded-2xl border border-amber-300 bg-amber-50 p-8 text-center dark:border-amber-500/30 dark:bg-amber-500/15">
-              <h2 className="text-xl font-extrabold text-amber-800 dark:text-amber-300">
+            <div className="ui-card my-4 p-8 text-center">
+              <h2 className="ui-title text-2xl">
                 Platform Maintenance Mode
               </h2>
               <p className="mx-auto mt-2 max-w-150 text-muted-foreground">
@@ -586,53 +555,21 @@ const AppLayout = ({ children }) => {
               </p>
             </div>
           ) : (
-            <div className="px-10">
-              {children}
-              </div>
+            <div className="px-0 md:px-2">{children}</div>
           )}
         </div>
       </main>
 
-      {/* Mobile floating bottom nav */}
+      {/* Mobile liquid-glass tab bar */}
       {!isViewingNote && (
-        <div
-          className="fixed left-1/2 z-40 flex h-18 w-[calc(100%-40px)] max-w-105 -translate-x-1/2 items-center rounded-[28px] border border-border bg-background/85 px-2 shadow-lg backdrop-blur-xl md:hidden"
-          style={{ bottom: "max(8px, env(safe-area-inset-bottom, 0px))" }}
-        >
-          <div className="flex w-full items-center justify-around">
-            {BOTTOM_NAV_ITEMS.map((tab) => {
-              const isSelected = Boolean(tab.path) && pathname === tab.path;
-              const Icon = tab.icon;
-              return (
-                <button
-                  key={tab.label}
-                  onClick={() => (tab.action === "menu" ? setMobileNavOpen(true) : router.push(tab.path))}
-                  className={cn(
-                    "flex h-full flex-1 flex-col items-center justify-center gap-0.5 rounded-[20px] py-1 transition-transform active:scale-95",
-                    isSelected
-                      ? "bg-primary/12 text-primary"
-                      : "text-muted-foreground"
-                  )}
-                >
-                  <Icon
-                    className={cn(
-                      "size-5.5 transition-transform",
-                      isSelected && "scale-110"
-                    )}
-                  />
-                  <span
-                    className={cn(
-                      "text-[10px]",
-                      isSelected ? "font-bold" : "font-medium opacity-75"
-                    )}
-                  >
-                    {tab.label}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+        <TabBar
+          value={MOBILE_TABS.find((t) => pathname === t.value)?.value ?? ""}
+          onChange={(v) => router.push(v)}
+          tabs={MOBILE_TABS.map((t) => ({
+            ...t,
+            icon: <t.Icon className="size-5" />,
+          }))}
+        />
       )}
 
       <PromptBuilderModal
@@ -650,13 +587,13 @@ const AppLayout = ({ children }) => {
             help!
           </p>
           <div className="flex flex-col gap-3">
-            <div className="rounded-xl border border-border p-4">
+            <div className="ui-card p-4">
               <p className="text-sm font-bold">Documentation &amp; Guides</p>
               <p className="text-xs text-muted-foreground">
                 Learn how to make the most of rich text HTML note taking.
               </p>
             </div>
-            <div className="rounded-xl border border-border p-4">
+            <div className="ui-card p-4">
               <p className="text-sm font-bold">Contact Support</p>
               <p className="text-xs text-muted-foreground">
                 Send us an email at support@opennotes.app
@@ -672,6 +609,7 @@ const AppLayout = ({ children }) => {
       </Dialog>
 
       <OnboardingWizardModal />
+      <InterfaceStyleSync />
     </div>
   );
 };

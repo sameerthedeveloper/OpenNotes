@@ -221,7 +221,7 @@ const DiscussionThreadView = ({ open, onClose, topic, currentUser, userProfile, 
           )}
         </div>
 
-        <h3 className="mt-4 mb-3 text-lg font-extrabold">Replies ({replies.length})</h3>
+        <h3 className="mt-4 mb-3 text-lg font-bold">Replies ({replies.length})</h3>
 
         {!topic.isLocked && (
           <div className="mb-4">

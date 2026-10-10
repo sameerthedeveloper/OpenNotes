@@ -97,7 +97,7 @@ export const PublicNotePage = ({ id }) => {
   if (!note) {
     return (
       <div className="mx-auto max-w-sm pt-24 text-center">
-        <h1 className="mb-2 text-2xl font-extrabold">Note Unavailable</h1>
+        <h1 className="mb-2 text-2xl font-bold">Note Unavailable</h1>
         <p className="mb-6 text-muted-foreground">
           This note does not exist or was made private by the author.
         </p>
@@ -138,7 +138,7 @@ export const PublicNotePage = ({ id }) => {
         </div>
       </div>
 
-      <h1 className="mb-6 text-3xl leading-tight font-extrabold tracking-tight sm:text-5xl">
+      <h1 className="mb-6 text-3xl leading-tight font-bold tracking-tight sm:text-5xl">
         {note.title || "Untitled Document"}
       </h1>
 

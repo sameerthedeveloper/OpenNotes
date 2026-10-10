@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useIsClient } from "./use-is-client";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -31,9 +32,8 @@ export function Modal({
   const titleId = React.useId();
   const sheetRef = React.useRef<HTMLDivElement>(null);
   const drag = React.useRef<{ y: number } | null>(null);
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = useIsClient();
 
-  React.useEffect(() => setMounted(true), []);
   useEscapeStack(open, onClose);
 
   // focus in / restore, lock body scroll

@@ -24,7 +24,7 @@ class ErrorBoundary extends React.Component {
         <div className="mx-auto flex min-h-screen w-full max-w-sm flex-col items-center justify-center text-center">
           <div className="rounded-lg border border-border bg-card p-12">
             <CircleAlert className="mx-auto mb-6 size-16 text-destructive" />
-            <h1 className="text-2xl font-extrabold text-foreground">
+            <h1 className="text-2xl font-bold text-foreground">
               Something went wrong
             </h1>
             <p className="mt-2 mb-8 text-muted-foreground">

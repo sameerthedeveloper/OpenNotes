@@ -36,7 +36,7 @@ export const NotificationsPage = () => {
     <div className="mx-auto w-full max-w-3xl">
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Notification Center</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Notification Center</h1>
           <p className="text-muted-foreground">
             Stay updated with real-time viewer tracking and system alerts.
           </p>
@@ -44,7 +44,7 @@ export const NotificationsPage = () => {
         <Button variant="outline" size="sm">Mark All Read</Button>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-border">
+      <div className="overflow-hidden ui-card">
         {NOTIFICATIONS.map((item, idx) => {
           const Icon = item.icon;
           return (

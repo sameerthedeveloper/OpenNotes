@@ -43,7 +43,7 @@ export const ScrollToTopButton = () => {
           aria-label="scroll back to top"
           onClick={scrollToTop}
           className={cn(
-            "fixed right-5 bottom-22 z-50 size-12 rounded-full shadow-lg transition-all duration-200 hover:-translate-y-1 active:scale-95 sm:right-8 sm:bottom-8",
+            "fixed right-5 bottom-22 z-50 size-12 rounded-full transition-all duration-200 hover:-translate-y-1 active:scale-95 sm:right-8 sm:bottom-8",
             visible
               ? "pointer-events-auto scale-100 opacity-100"
               : "pointer-events-none scale-75 opacity-0"

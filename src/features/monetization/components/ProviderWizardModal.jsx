@@ -150,7 +150,7 @@ export const ProviderWizardModal = ({ open, onClose, initialProviderId = null })
                           onError={(e) => { e.currentTarget.src = "/logo.svg"; }}
                         />
                         <div className="flex-1">
-                          <p className="text-sm font-extrabold">{p.name}</p>
+                          <p className="text-sm font-bold">{p.name}</p>
                           <Badge variant="secondary" className="h-5 text-[11px]">{p.category}</Badge>
                         </div>
                         {isSelected && <CheckCircle2 className="text-primary" />}
@@ -217,7 +217,7 @@ export const ProviderWizardModal = ({ open, onClose, initialProviderId = null })
                   Provider parameters formatted correctly! Ready for verification submission.
                 </AlertDescription>
               </Alert>
-              <div className="flex flex-col gap-2 rounded-2xl border border-border p-4">
+              <div className="flex flex-col gap-2 ui-card p-4">
                 {[
                   ["Provider", selectedProvider?.name],
                   ["Publisher ID", formData.publisherId],
@@ -236,7 +236,7 @@ export const ProviderWizardModal = ({ open, onClose, initialProviderId = null })
           {activeStep === 4 && (
             <div className="flex flex-col items-center gap-3 py-2 text-center">
               <TriangleAlert className="size-14 text-amber-500" />
-              <h3 className="text-lg font-extrabold">Submit Request for Review?</h3>
+              <h3 className="text-lg font-bold">Submit Request for Review?</h3>
               <p className="max-w-md text-sm text-muted-foreground">
                 Our platform security engine will verify your publisher configuration. Once verified, ads will automatically render on your enabled placements.
               </p>
@@ -246,7 +246,7 @@ export const ProviderWizardModal = ({ open, onClose, initialProviderId = null })
           {activeStep === 5 && (
             <div className="flex flex-col items-center gap-3 py-4 text-center">
               <CheckCircle2 className="size-16 text-emerald-500" />
-              <h3 className="text-xl font-black">Verification Pending!</h3>
+              <h3 className="text-xl font-bold">Verification Pending!</h3>
               <p className="max-w-md text-sm text-muted-foreground">
                 Your {selectedProvider?.name} connection request has been received. Status is now set to <strong>Pending</strong>.
               </p>

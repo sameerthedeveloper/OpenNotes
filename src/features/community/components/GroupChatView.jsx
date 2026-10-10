@@ -101,7 +101,7 @@ const GroupChatView = ({ currentUser, userProfile, initialRoomId = null }) => {
     <div className="flex flex-col overflow-hidden rounded-3xl border border-border md:h-[680px] md:flex-row">
       {/* Channels Sidebar */}
       <div className="border-b border-border bg-muted/30 p-3 md:w-64 md:border-r md:border-b-0">
-        <p className="mb-2 px-1 text-xs font-extrabold tracking-wide text-muted-foreground">
+        <p className="mb-2 px-1 text-xs font-bold tracking-wide text-muted-foreground">
           PUBLIC CHANNELS
         </p>
 
@@ -114,7 +114,7 @@ const GroupChatView = ({ currentUser, userProfile, initialRoomId = null }) => {
                 onClick={() => setSelectedRoom(room)}
                 className={cn(
                   "flex items-center gap-2 rounded-xl px-3 py-2 text-left text-sm",
-                  isSelected ? "bg-primary font-extrabold text-primary-foreground" : "font-semibold text-foreground hover:bg-muted"
+                  isSelected ? "bg-primary font-bold text-primary-foreground" : "font-semibold text-foreground hover:bg-muted"
                 )}
               >
                 <Hash className="size-4 shrink-0" />
@@ -131,7 +131,7 @@ const GroupChatView = ({ currentUser, userProfile, initialRoomId = null }) => {
           <div className="flex items-center gap-2.5">
             <Hash className="size-5 text-primary" />
             <div>
-              <p className="text-[1.05rem] font-extrabold">#{selectedRoom.name}</p>
+              <p className="text-[1.05rem] font-bold">#{selectedRoom.name}</p>
               <p className="text-xs text-muted-foreground">{selectedRoom.description}</p>
             </div>
           </div>

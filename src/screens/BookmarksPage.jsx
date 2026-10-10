@@ -99,7 +99,7 @@ export const BookmarksPage = () => {
   return (
     <div className="w-full">
       <div className="mb-6">
-        <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Bookmarks &amp; Favorites</h1>
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Bookmarks &amp; Favorites</h1>
         <p className="text-muted-foreground">
           Quickly access your starred notes and public notes saved from Discover.
         </p>
@@ -112,7 +112,7 @@ export const BookmarksPage = () => {
           ))}
         </div>
       ) : allBookmarks.length === 0 ? (
-        <div className="rounded-2xl border border-border p-12 text-center">
+        <div className="ui-card p-12 text-center">
           <Bookmark className="mx-auto mb-3 size-12 text-muted-foreground/40" />
           <h3 className="text-lg font-bold">No bookmarks yet</h3>
           <p className="text-sm text-muted-foreground">

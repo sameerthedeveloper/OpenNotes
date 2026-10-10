@@ -139,7 +139,7 @@ export const NotesPage = () => {
     <div className="w-full">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">My Notes Library</h1>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">My Notes Library</h1>
           <p className="text-muted-foreground">Organize, search, and manage all your rich text HTML notes.</p>
         </div>
 
@@ -174,7 +174,7 @@ export const NotesPage = () => {
         </div>
       )}
 
-      <div className="mb-6 rounded-2xl border border-border p-4">
+      <div className="mb-6 ui-card p-4">
         <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
           <div className="relative w-full sm:w-75">
             <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -227,7 +227,7 @@ export const NotesPage = () => {
           ))}
         </div>
       ) : paginatedNotes.length === 0 ? (
-        <div className="rounded-2xl border border-border p-12 text-center">
+        <div className="ui-card p-12 text-center">
           <h3 className="text-lg font-bold">No notes found</h3>
           <p className="mb-4 text-sm text-muted-foreground">
             Try adjusting your search criteria or create a new note.

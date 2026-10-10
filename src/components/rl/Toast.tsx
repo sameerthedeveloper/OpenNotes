@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useIsClient } from "./use-is-client";
 import { createPortal } from "react-dom";
 
 type ToastItem = { id: number; message: string };
@@ -11,9 +12,8 @@ export const useToast = () => React.useContext(Ctx);
 /** Bottom pill toasts, auto-dismiss after 4s. Wrap the app once. */
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = React.useState<ToastItem[]>([]);
-  const [mounted, setMounted] = React.useState(false);
+  const mounted = useIsClient();
   const seq = React.useRef(0);
-  React.useEffect(() => setMounted(true), []);
 
   const push = React.useCallback((message: string) => {
     const id = ++seq.current;

@@ -126,7 +126,7 @@ export const MonetizationPage = () => {
         <div>
           <div className="flex items-center gap-2.5">
             <DollarSign className="size-8 text-primary" />
-            <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">Creator Monetization Hub</h1>
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">Creator Monetization Hub</h1>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
             Provider-agnostic ad framework. Connect AdSense, Ad Manager, Media.net, Carbon Ads, or Custom partners.
@@ -161,12 +161,12 @@ export const MonetizationPage = () => {
               { label: "IMPRESSIONS", value: (analytics?.impressions ?? 0).toLocaleString(), icon: Eye, sub: `RPM: ${analytics?.rpm || "$0.00"}` },
               { label: "CLICKS & CTR", value: (analytics?.clicks ?? 0).toLocaleString(), icon: MousePointerClick, sub: `CTR: ${analytics?.ctr || "0%"}`, subClass: "text-amber-500" },
             ].map((card) => (
-              <div key={card.label} className="rounded-2xl border border-border p-4">
+              <div key={card.label} className="ui-card p-4">
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-muted-foreground">{card.label}</span>
                   <card.icon className="size-4 text-primary" />
                 </div>
-                <p className="mt-2 text-2xl font-extrabold">{card.value}</p>
+                <p className="mt-2 text-2xl font-bold">{card.value}</p>
                 <p className={cn("text-xs font-bold", card.subClass || "text-muted-foreground")}>{card.sub}</p>
               </div>
             ))}
@@ -175,7 +175,7 @@ export const MonetizationPage = () => {
           <div className={cn("rounded-2xl border p-5", activeProvider ? "border-primary bg-primary/5" : "border-border")}>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
-                <h3 className="text-lg font-extrabold">
+                <h3 className="text-lg font-bold">
                   {activeProvider ? `Active Provider: ${activeProvider.name}` : "No Ad Provider Connected"}
                 </h3>
                 <p className="mt-1 text-sm text-muted-foreground">
@@ -191,8 +191,8 @@ export const MonetizationPage = () => {
             </div>
           </div>
 
-          <div className="rounded-2xl border border-border p-6">
-            <h3 className="mb-3 text-base font-extrabold">Top Revenue Performing Notes</h3>
+          <div className="ui-card p-6">
+            <h3 className="mb-3 text-base font-bold">Top Revenue Performing Notes</h3>
             {!analytics?.topNotes || analytics.topNotes.length === 0 ? (
               <p className="py-6 text-center text-sm text-muted-foreground">
                 No ad revenue recorded yet. Connect an ad provider and publish notes to view performance.
@@ -205,7 +205,7 @@ export const MonetizationPage = () => {
                       <p className="text-sm font-bold">{note.title}</p>
                       <p className="text-xs text-muted-foreground">{note.views} views</p>
                     </div>
-                    <Badge className="bg-success font-extrabold text-success-foreground">{note.revenue}</Badge>
+                    <Badge className="bg-success font-bold text-success-foreground">{note.revenue}</Badge>
                   </div>
                 ))}
               </div>
@@ -231,7 +231,7 @@ export const MonetizationPage = () => {
                       {/* eslint-disable-next-line @next/next/no-img-element -- external provider logo URLs */}
                       <img src={p.logo} alt={p.name} onError={(e) => { e.currentTarget.src = "/logo.svg"; }} className="size-11 object-contain" />
                       <div>
-                        <h3 className="font-extrabold">{p.name}</h3>
+                        <h3 className="font-bold">{p.name}</h3>
                         <Badge variant="secondary" className="h-5 text-[11px]">{p.category}</Badge>
                       </div>
                     </div>
@@ -248,15 +248,15 @@ export const MonetizationPage = () => {
 
         {/* Placements */}
         <TabsContent value="placements" className="mt-4 flex flex-col gap-6">
-          <div className="rounded-2xl border border-border p-6">
-            <h3 className="text-base font-extrabold">Ad Placement Controls</h3>
+          <div className="ui-card p-6">
+            <h3 className="text-base font-bold">Ad Placement Controls</h3>
             <p className="mb-4 text-sm text-muted-foreground">
               Select where ad units will render across your public notes and views.
             </p>
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {PLACEMENT_OPTIONS.map((item) => (
-                <div key={item.id} className="flex items-start gap-3 rounded-xl border border-border p-3">
+                <div key={item.id} className="flex items-start gap-3 ui-card p-3">
                   <Switch
                     checked={Boolean(placements[item.id])}
                     onCheckedChange={(checked) => setPlacements({ ...placements, [item.id]: checked })}
@@ -273,15 +273,15 @@ export const MonetizationPage = () => {
           </div>
 
           <div>
-            <h3 className="mb-2 text-base font-extrabold">Ad Placement Live Preview</h3>
+            <h3 className="mb-2 text-base font-bold">Ad Placement Live Preview</h3>
             <AdPlacement placement="above_article" isPreview />
           </div>
         </TabsContent>
 
         {/* Analytics */}
         <TabsContent value="analytics" className="mt-4">
-          <div className="rounded-2xl border border-border p-6">
-            <h3 className="text-base font-extrabold">Earnings &amp; Traffic Performance</h3>
+          <div className="ui-card p-6">
+            <h3 className="text-base font-bold">Earnings &amp; Traffic Performance</h3>
             <p className="mb-4 text-sm text-muted-foreground">
               Real-time analytics breakdown for revenue, impressions, and CTR metrics.
             </p>
@@ -289,7 +289,7 @@ export const MonetizationPage = () => {
             {loadingAnalytics ? (
               <Progress value={undefined} className="animate-pulse" />
             ) : !analytics?.chartData || analytics.chartData.length === 0 ? (
-              <div className="rounded-2xl border border-border p-12 text-center">
+              <div className="ui-card p-12 text-center">
                 <h4 className="mb-1 font-bold">No Traffic or Revenue Analytics Recorded</h4>
                 <p className="mb-4 text-sm text-muted-foreground">
                   Connect an ad provider and enable ad placements to begin tracking impression and earnings analytics.
@@ -302,9 +302,9 @@ export const MonetizationPage = () => {
             ) : (
               <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                 {analytics.chartData.map((item, idx) => (
-                  <div key={idx} className="rounded-xl border border-border p-3 text-center">
+                  <div key={idx} className="ui-card p-3 text-center">
                     <p className="text-xs font-bold text-muted-foreground">{item.date}</p>
-                    <p className="text-xl font-extrabold text-primary">${item.revenue}</p>
+                    <p className="text-xl font-bold text-primary">${item.revenue}</p>
                     <p className="text-xs text-muted-foreground">{item.impressions} impr · {item.clicks} clicks</p>
                   </div>
                 ))}
@@ -315,9 +315,9 @@ export const MonetizationPage = () => {
 
         {/* Verification */}
         <TabsContent value="verification" className="mt-4">
-          <div className="flex flex-col gap-4 rounded-2xl border border-border p-6">
+          <div className="flex flex-col gap-4 ui-card p-6">
             <div>
-              <h3 className="text-base font-extrabold">Publisher Verification Status</h3>
+              <h3 className="text-base font-bold">Publisher Verification Status</h3>
               <p className="text-sm text-muted-foreground">
                 Track your verification review lifecycle and admin security compliance.
               </p>
@@ -350,29 +350,29 @@ export const MonetizationPage = () => {
 
         {/* Settings */}
         <TabsContent value="settings" className="mt-4">
-          <div className="rounded-2xl border border-border p-6">
-            <h3 className="text-base font-extrabold">Monetization &amp; Payout Preferences</h3>
+          <div className="ui-card p-6">
+            <h3 className="text-base font-bold">Monetization &amp; Payout Preferences</h3>
             <p className="mb-4 text-sm text-muted-foreground">
               Configure auto-ad frequency, category safety, and payout methods.
             </p>
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-border p-4">
+              <div className="ui-card p-4">
                 <div className="flex items-center gap-3">
                   <Wallet className="size-9 text-primary" />
                   <div>
-                    <p className="text-sm font-extrabold">Stripe Connect &amp; Payouts</p>
+                    <p className="text-sm font-bold">Stripe Connect &amp; Payouts</p>
                     <p className="text-xs text-muted-foreground">Direct bank deposit for revenue share</p>
                   </div>
                 </div>
                 <Badge variant="secondary" className="mt-3">Coming Soon</Badge>
               </div>
 
-              <div className="rounded-xl border border-border p-4">
+              <div className="ui-card p-4">
                 <div className="flex items-center gap-3">
                   <FileText className="size-9 text-muted-foreground" />
                   <div>
-                    <p className="text-sm font-extrabold">Tax Forms &amp; 1099/W8-BEN</p>
+                    <p className="text-sm font-bold">Tax Forms &amp; 1099/W8-BEN</p>
                     <p className="text-xs text-muted-foreground">Annual tax reporting &amp; compliance</p>
                   </div>
                 </div>

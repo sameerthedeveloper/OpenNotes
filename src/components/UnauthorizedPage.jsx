@@ -9,12 +9,12 @@ export const UnauthorizedPage = () => {
 
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4 py-8">
-      <div className="w-full max-w-lg rounded-2xl border border-border bg-card p-12 text-center shadow-sm">
+      <div className="w-full max-w-lg ui-card p-12 text-center">
         <div className="mx-auto mb-6 inline-flex size-20 items-center justify-center rounded-full border-2 border-destructive/30 bg-destructive/10 text-destructive">
           <ShieldAlert size={42} />
         </div>
 
-        <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
           403 &ndash; Access Denied
         </h1>
 

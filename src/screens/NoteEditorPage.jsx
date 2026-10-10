@@ -203,7 +203,7 @@ export const NoteEditorPage = ({ id }) => {
           placeholder="Note Title..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="mb-4 h-auto border-none px-0 text-2xl font-extrabold shadow-none focus-visible:ring-0 sm:text-4xl"
+          className="mb-4 h-auto border-none px-0 text-2xl font-bold shadow-none focus-visible:ring-0 sm:text-4xl"
         />
 
         <div className="mb-4">
@@ -230,7 +230,7 @@ export const NoteEditorPage = ({ id }) => {
 
       <Suspense
         fallback={
-          <div className="rounded-2xl border border-border p-12 text-center">
+          <div className="ui-card p-12 text-center">
             <Loader2 className="mx-auto size-8 animate-spin text-muted-foreground" />
             <p className="mt-3 text-sm font-medium text-muted-foreground">
               Loading Rich Text Editor...
@@ -255,7 +255,7 @@ export const NoteEditorPage = ({ id }) => {
 
   return (
     <div className="w-full">
-      <div className="mb-6 sticky top-4 z-10 w-full rounded-2xl border border-border bg-card p-5">
+      <div className="mb-6 sticky top-4 z-10 w-full ui-card p-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" onClick={() => router.push("/notes")}>
@@ -352,7 +352,7 @@ export const NoteEditorPage = ({ id }) => {
       {!isEditing ? (
         <div className="mx-auto w-full max-w-3xl">
           <div className="mb-6">
-            <h1 className="mb-3 text-3xl font-extrabold tracking-tight sm:text-5xl">
+            <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-5xl">
               {title || "Untitled Note"}
             </h1>
 

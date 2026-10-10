@@ -95,7 +95,7 @@ const DiscoverPage = () => {
   return (
     <div className="w-full">
       <div className="mb-6 border-b border-border pb-4">
-        <h1 className="text-3xl font-extrabold tracking-tight">Discover</h1>
+        <h1 className="text-3xl font-bold tracking-tight">Discover</h1>
       </div>
 
       {loading ? (

@@ -47,7 +47,7 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
 const OverviewCard = ({ title, count, icon: Icon, iconClass }) => (
-  <div className="flex h-full flex-col justify-between rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5 hover:border-primary/60 hover:shadow-md">
+  <div className="flex h-full flex-col justify-between ui-card p-4 transition-all duration-200 hover:-translate-y-0.5">
     <div className={cn("flex size-9 items-center justify-center rounded-xl", iconClass)}>
       <Icon className="size-4.5" />
     </div>
@@ -142,7 +142,7 @@ export const DashboardPage = () => {
     <div className="w-full pb-24 sm:pb-4">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div className="min-w-0">
-          <h1 className="text-xl leading-tight font-extrabold tracking-tight sm:text-3xl">
+          <h1 className="text-xl leading-tight font-bold tracking-tight sm:text-3xl">
             Welcome back, {currentUser?.displayName?.split(" ")[0] || "User"}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">Manage, edit, and share your notes.</p>
@@ -213,7 +213,7 @@ export const DashboardPage = () => {
           ))}
         </div>
       ) : filteredNotes.length === 0 ? (
-        <div className="rounded-2xl border border-border bg-card p-12 text-center">
+        <div className="ui-card p-12 text-center">
           <NotebookText className="mx-auto mb-3 size-12 text-muted-foreground/40" />
           <h3 className="text-base font-bold">No notes found</h3>
           <p className="mb-4 text-sm text-muted-foreground">
@@ -250,7 +250,7 @@ export const DashboardPage = () => {
               <button
                 key={note.id}
                 onClick={() => router.push(`/note/${note.id}`)}
-                className="flex items-center justify-between gap-3 rounded-2xl border border-border p-3 text-left active:scale-[0.99]"
+                className="flex items-center justify-between gap-3 ui-card p-3 text-left active:scale-[0.99]"
               >
                 <div className="flex min-w-0 flex-1 items-center gap-3">
                   <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">

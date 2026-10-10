@@ -6,6 +6,7 @@ import { Dialog as DialogPrimitive } from "radix-ui"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { XIcon } from "lucide-react"
+import { useSheetDrag } from "@/components/rl/use-sheet-drag"
 
 function Dialog({
   ...props
@@ -39,7 +40,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        "fixed inset-0 isolate z-50 bg-black/10 duration-100 supports-backdrop-filter:backdrop-blur-xs data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0",
+        "ui-modal-backdrop fixed inset-0 isolate z-50 duration-200 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0",
         className
       )}
       {...props}
@@ -55,29 +56,31 @@ function DialogContent({
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
 }) {
+  const sheetRef = React.useRef<HTMLDivElement>(null)
+  const closeRef = React.useRef<HTMLButtonElement>(null)
+  const grab = useSheetDrag(sheetRef, () => closeRef.current?.click())
+
   return (
     <DialogPortal>
       <DialogOverlay />
       <DialogPrimitive.Content
+        ref={sheetRef}
         data-slot="dialog-content"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-xl bg-popover p-4 text-sm text-popover-foreground ring-1 ring-foreground/10 duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          "ui-modal fixed inset-x-0 bottom-0 z-50 grid max-h-[92dvh] w-full gap-4 overflow-y-auto p-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] text-sm text-popover-foreground duration-200 outline-none max-sm:data-open:slide-in-from-bottom-10 max-sm:data-closed:slide-out-to-bottom-10 sm:inset-x-auto sm:bottom-auto sm:top-1/2 sm:left-1/2 sm:max-w-md sm:-translate-x-1/2 sm:-translate-y-1/2 sm:data-open:animate-in sm:data-open:fade-in-0 sm:data-open:zoom-in-95 sm:data-closed:animate-out sm:data-closed:fade-out-0 sm:data-closed:zoom-out-95 max-sm:data-open:animate-in max-sm:data-closed:animate-out",
           className
         )}
         {...props}
       >
+        <div className="ui-sheet-grabber -mt-3" {...grab} aria-hidden />
         {children}
+        <DialogPrimitive.Close ref={closeRef} className="sr-only" tabIndex={-1} aria-hidden />
         {showCloseButton && (
           <DialogPrimitive.Close data-slot="dialog-close" asChild>
-            <Button
-              variant="ghost"
-              className="absolute top-2 right-2"
-              size="icon-sm"
-            >
-              <XIcon
-              />
+            <button type="button" className="ui-icon-btn absolute top-4 right-4 !min-h-9 !min-w-9 !p-2">
+              <XIcon className="size-4" />
               <span className="sr-only">Close</span>
-            </Button>
+            </button>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>
@@ -107,7 +110,7 @@ function DialogFooter({
     <div
       data-slot="dialog-footer"
       className={cn(
-        "-mx-4 -mb-4 flex flex-col-reverse gap-2 rounded-b-xl border-t bg-muted/50 p-4 sm:flex-row sm:justify-end",
+        "flex flex-col-reverse gap-2 border-t border-black/[0.06] pt-4 sm:flex-row sm:justify-end",
         className
       )}
       {...props}
@@ -130,7 +133,7 @@ function DialogTitle({
     <DialogPrimitive.Title
       data-slot="dialog-title"
       className={cn(
-        "font-heading text-base leading-none font-medium",
+        "ui-title pr-10 text-[22px] leading-tight",
         className
       )}
       {...props}

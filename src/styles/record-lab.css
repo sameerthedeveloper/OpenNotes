@@ -4,6 +4,69 @@
   Imported by globals.css after tailwind + @config (tailwind.config.ts).
 */
 
+/*
+  Modern remap: shadcn variables -> Record Lab tokens. Applies to <html data-ui="modern">
+  (also when a stale .dark class is present — modern has no dark mode).
+  Classic keeps the original Ink & Copper variables.
+*/
+html[data-ui="modern"],
+html[data-ui="modern"].dark {
+  --background: #faf7f0;
+  --foreground: #1c2b33;
+  --card: #ffffff;
+  --card-foreground: #1c2b33;
+  --popover: #ffffff;
+  --popover-foreground: #1c2b33;
+  --primary: #c2410c;
+  --primary-foreground: #ffffff;
+  --secondary: rgb(0 0 0 / 0.045);
+  --secondary-foreground: #1c2b33;
+  --muted: rgb(0 0 0 / 0.04);
+  --muted-foreground: #4b5a63;
+  --accent: rgb(0 0 0 / 0.05);
+  --accent-foreground: #1c2b33;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --success: #059669;
+  --success-foreground: #ffffff;
+  --border: rgb(0 0 0 / 0.06);
+  --input: rgb(0 0 0 / 0.06);
+  --ring: #c2410c;
+  --text-body: #1c2b33;
+  --accent-hover: #9a3412;
+  --accent-ink: #7c2d12;
+  --accent-soft: #fde8d8;
+  --sidebar: transparent;
+  --sidebar-foreground: #1c2b33;
+  --sidebar-primary: #c2410c;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: rgb(0 0 0 / 0.05);
+  --sidebar-accent-foreground: #1c2b33;
+  --sidebar-border: rgb(0 0 0 / 0.06);
+  --sidebar-ring: #c2410c;
+  --radius: 0.875rem;
+  color-scheme: light;
+}
+
+@layer base {
+  html[data-ui="modern"] body {
+    @apply font-body text-[15px] antialiased;
+    background:
+      radial-gradient(60rem 40rem at 8% -10%, rgba(253, 232, 216, 0.75), transparent 60%),
+      radial-gradient(50rem 36rem at 100% 100%, rgba(223, 233, 230, 0.8), transparent 60%),
+      #efede7;
+    background-attachment: fixed;
+  }
+  html[data-ui="modern"] h1,
+  html[data-ui="modern"] h2,
+  html[data-ui="modern"] h3 {
+    @apply font-display tracking-[-0.02em] text-balance;
+  }
+  html[data-ui="modern"] :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+}
+
 @layer components {
   /* ---------- surfaces ---------- */
   .app-canvas {
@@ -40,6 +103,17 @@
   }
   .ui-modal-backdrop {
     @apply bg-ink/30 backdrop-blur-md;
+  }
+
+  /* pill radius that flattens in classic; gradient fill for shadcn primary */
+  .ui-pill {
+    @apply rounded-full;
+  }
+  .ui-grad {
+    @apply bg-gradient-to-b from-[#D4500F] to-brand text-white shadow-primary hover:brightness-105;
+  }
+  .ui-sheet-grabber {
+    @apply mx-auto mb-1 mt-0 h-1.5 w-10 shrink-0 cursor-grab touch-none rounded-full bg-black/15 sm:hidden;
   }
 
   /* ---------- type ---------- */
@@ -165,6 +239,12 @@
   [data-ui="classic"] .ui-panel-header,
   [data-ui="classic"] .ui-rail {
     @apply border-line bg-white backdrop-blur-none;
+  }
+  [data-ui="classic"] .ui-pill {
+    @apply rounded-xl;
+  }
+  [data-ui="classic"] .ui-grad {
+    @apply bg-brand bg-none shadow-sm;
   }
   [data-ui="classic"] .ui-card {
     @apply rounded-xl border-line bg-white shadow-sm;
