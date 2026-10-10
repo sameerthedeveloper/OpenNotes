@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "../styles/opennotes-content.css";
+@import "../styles/record-lab.css";
+@config "../../tailwind.config.ts";
 
 @custom-variant dark (&:is(.dark *));
 

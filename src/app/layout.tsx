@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Roboto_Slab } from "next/font/google";
+import { Inter, JetBrains_Mono, Roboto_Slab, Source_Serif_4 } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { NextThemeProvider } from "@/components/providers/next-theme-provider";
@@ -12,15 +12,24 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import ServiceWorkerRegistration from "@/components/ServiceWorkerRegistration";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { Toaster } from "@/components/ui/sonner";
+import { interfaceStyleScript } from "@/components/rl/interface-style";
 
 const inter = Inter({
   variable: "--font-app-sans",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const sourceSerif = Source_Serif_4({
+  variable: "--font-rl-display",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 const jetBrainsMono = JetBrains_Mono({
   variable: "--font-app-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
 const robotoSlab = Roboto_Slab({
@@ -53,15 +62,20 @@ export const viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover",
+  themeColor: "#FAF7F0",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jetBrainsMono.variable} ${robotoSlab.variable} h-full antialiased`}
+      className={`${inter.variable} ${jetBrainsMono.variable} ${robotoSlab.variable} ${sourceSerif.variable} h-full antialiased`}
+      data-ui="modern"
       suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: interfaceStyleScript }} />
+      </head>
       <body className="min-h-full flex flex-col">
         <ErrorBoundary>
           <NextThemeProvider>

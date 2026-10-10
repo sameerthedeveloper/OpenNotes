@@ -1,0 +1,224 @@
+/*
+  Record Lab Modern — .ui-* component layer.
+  "modern" is the default. `<html data-ui="classic">` flips to the flat fallback.
+  Imported by globals.css after tailwind + @config (tailwind.config.ts).
+*/
+
+@layer components {
+  /* ---------- surfaces ---------- */
+  .app-canvas {
+    @apply font-body text-[15px] text-ink antialiased;
+    background:
+      radial-gradient(60rem 40rem at 8% -10%, rgba(253, 232, 216, 0.75), transparent 60%),
+      radial-gradient(50rem 36rem at 100% 100%, rgba(223, 233, 230, 0.8), transparent 60%),
+      #efede7;
+  }
+  .work-surface {
+    background-color: #faf8f3;
+    background-image:
+      linear-gradient(rgba(28, 43, 51, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28, 43, 51, 0.035) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .ui-panel {
+    @apply rounded-panel border border-black/[0.06] bg-white/90 shadow-panel backdrop-blur-xl;
+  }
+  .ui-panel-header {
+    @apply relative z-30 border-b border-black/[0.06] bg-white/70 backdrop-blur-xl;
+  }
+  .ui-rail {
+    @apply border-b border-black/[0.06] bg-white/60 backdrop-blur-xl;
+  }
+  .ui-card {
+    @apply rounded-card border border-black/[0.05] bg-white shadow-card;
+  }
+  .ui-menu {
+    @apply rounded-2xl border border-black/[0.06] bg-white/95 shadow-menu backdrop-blur-2xl;
+  }
+  .ui-modal {
+    @apply rounded-t-modal border border-black/[0.06] bg-white/95 shadow-modal backdrop-blur-2xl sm:rounded-modal;
+  }
+  .ui-modal-backdrop {
+    @apply bg-ink/30 backdrop-blur-md;
+  }
+
+  /* ---------- type ---------- */
+  .ui-title {
+    @apply font-display font-bold tracking-[-0.02em] text-ink text-balance;
+  }
+  .ui-label {
+    @apply font-label text-[10px] uppercase tracking-[0.18em] text-ink-soft/60;
+  }
+
+  /* ---------- controls ---------- */
+  .ui-input {
+    @apply w-full rounded-input border border-transparent bg-black/[0.04] p-3 text-[16px] text-ink outline-none transition-all duration-200 placeholder:text-ink-soft/50 hover:bg-black/[0.055] focus:border-brand/50 focus:bg-white focus:ring-4 focus:ring-brand/15 md:text-[15px];
+  }
+  .ui-icon-btn {
+    @apply inline-flex min-h-11 min-w-11 items-center justify-center rounded-full bg-black/[0.045] p-2.5 text-ink-soft transition-all duration-200 hover:bg-black/[0.08] hover:text-brand active:scale-90;
+  }
+  .ui-primary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-gradient-to-b from-[#D4500F] to-brand px-6 text-[14px] font-semibold text-white shadow-primary transition-all duration-200 hover:brightness-105 active:scale-[0.985] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .ui-seg {
+    @apply inline-flex items-center rounded-full border border-black/[0.06] bg-white shadow-small;
+  }
+  .ui-seg-item {
+    @apply inline-flex min-h-9 items-center justify-center gap-1.5 rounded-full px-3.5 text-[13px] font-medium text-ink-soft transition-all duration-200 hover:text-ink active:scale-95;
+  }
+  .ui-seg-item[aria-pressed="true"],
+  .ui-seg-item[aria-selected="true"] {
+    @apply bg-brand-soft text-brand-ink;
+  }
+  .ui-chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-black/[0.06] bg-white px-3 py-1.5 text-[12px] font-medium text-ink-soft shadow-small transition-all duration-200;
+  }
+  button.ui-chip {
+    @apply hover:text-ink active:scale-95;
+  }
+  .ui-nav {
+    @apply flex min-h-11 w-full items-center gap-2.5 rounded-full px-4 text-left text-[14px] font-medium text-ink-soft transition-all duration-200 hover:bg-black/[0.045] hover:text-ink active:scale-[0.985];
+  }
+  .ui-nav[aria-current="page"],
+  .ui-nav[aria-selected="true"] {
+    @apply bg-brand-soft text-brand-ink;
+  }
+  .ui-tab {
+    @apply relative inline-flex min-h-11 items-center px-3 text-[13px] font-medium text-ink-soft transition-colors duration-200 hover:text-ink;
+  }
+  .ui-tab[aria-selected="true"] {
+    @apply text-brand-ink after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded-full after:bg-brand;
+  }
+  .ui-tile {
+    @apply inline-flex size-8 shrink-0 items-center justify-center rounded-[10px] bg-gradient-to-b from-[#D4500F] to-brand text-white shadow-tile;
+  }
+  .ui-field-error {
+    @apply mt-1.5 text-[12px] text-red-600;
+  }
+
+  /* dialog buttons */
+  .ui-btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-semibold transition-all duration-200 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50;
+  }
+  .ui-btn-primary {
+    @apply bg-brand text-white hover:bg-brand-hover;
+  }
+  .ui-btn-secondary {
+    @apply border border-black/[0.08] bg-white text-ink hover:bg-black/[0.03];
+  }
+  .ui-btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700;
+  }
+
+  /* menu items */
+  .ui-menu-item {
+    @apply flex min-h-10 w-full items-center gap-2.5 rounded-xl px-3 text-left text-[14px] text-ink transition-colors duration-200 hover:bg-black/[0.05] focus-visible:bg-black/[0.05];
+  }
+  .ui-menu-item[data-danger="true"] {
+    @apply text-red-600;
+  }
+
+  /* toast */
+  .ui-toast {
+    @apply rounded-full bg-ink/90 px-5 py-3 text-[13px] text-paper shadow-toast backdrop-blur-xl;
+  }
+
+  /* mobile liquid-glass tab bar */
+  .ui-tabbar {
+    @apply relative grid grid-cols-3 rounded-full border border-black/[0.06] bg-white/70 p-1 shadow-panel backdrop-blur-2xl;
+  }
+  .ui-tabbar-lens {
+    @apply absolute inset-y-1 left-1 w-[calc((100%-0.5rem)/3)] rounded-full bg-brand-soft shadow-small transition-transform duration-300 ease-out;
+    transform: translateX(calc(var(--tab-index, 0) * 100%));
+  }
+  .ui-tabbar-item {
+    @apply relative z-10 flex min-h-12 flex-col items-center justify-center gap-0.5 rounded-full text-[11px] font-medium text-ink-soft transition-colors duration-200 active:scale-95;
+  }
+  .ui-tabbar-item[aria-current="page"] {
+    @apply text-brand-ink;
+  }
+
+  /* keyboard focus: 2px accent outline on everything pressable */
+  .ui-icon-btn:focus-visible,
+  .ui-primary:focus-visible,
+  .ui-seg-item:focus-visible,
+  .ui-chip:focus-visible,
+  .ui-nav:focus-visible,
+  .ui-tab:focus-visible,
+  .ui-btn:focus-visible,
+  .ui-menu-item:focus-visible,
+  .ui-tabbar-item:focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+
+  /* ---------- classic (flat) overrides ---------- */
+  [data-ui="classic"] .app-canvas {
+    background: #faf7f0;
+  }
+  [data-ui="classic"] .work-surface {
+    background-image: none;
+    background-color: #faf7f0;
+  }
+  [data-ui="classic"] .ui-panel {
+    @apply rounded-2xl border-line bg-white shadow-sm backdrop-blur-none;
+  }
+  [data-ui="classic"] .ui-panel-header,
+  [data-ui="classic"] .ui-rail {
+    @apply border-line bg-white backdrop-blur-none;
+  }
+  [data-ui="classic"] .ui-card {
+    @apply rounded-xl border-line bg-white shadow-sm;
+  }
+  [data-ui="classic"] .ui-input {
+    @apply rounded-xl border-line bg-white;
+  }
+  [data-ui="classic"] .ui-icon-btn {
+    @apply rounded-xl border border-line bg-white;
+  }
+  [data-ui="classic"] .ui-primary {
+    @apply rounded-xl bg-brand bg-none shadow-sm;
+  }
+  [data-ui="classic"] .ui-seg,
+  [data-ui="classic"] .ui-chip {
+    @apply rounded-xl border-line shadow-sm;
+  }
+  [data-ui="classic"] .ui-seg-item,
+  [data-ui="classic"] .ui-nav,
+  [data-ui="classic"] .ui-btn {
+    @apply rounded-xl;
+  }
+  [data-ui="classic"] .ui-menu {
+    @apply rounded-xl border-line bg-white shadow-sm backdrop-blur-none;
+  }
+  [data-ui="classic"] .ui-modal {
+    @apply rounded-t-2xl border-line bg-white shadow-sm backdrop-blur-none sm:rounded-2xl;
+  }
+  [data-ui="classic"] .ui-modal-backdrop {
+    @apply backdrop-blur-none;
+  }
+  [data-ui="classic"] .ui-btn-primary {
+    @apply bg-brand;
+  }
+  [data-ui="classic"] .ui-tile {
+    @apply rounded-lg bg-brand bg-none shadow-none;
+  }
+  [data-ui="classic"] .ui-toast {
+    @apply rounded-xl bg-ink shadow-sm backdrop-blur-none;
+  }
+  [data-ui="classic"] .ui-tabbar {
+    @apply rounded-2xl border-line bg-white shadow-sm backdrop-blur-none;
+  }
+  [data-ui="classic"] .ui-tabbar-lens {
+    @apply rounded-xl shadow-none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-canvas *,
+  .ui-modal,
+  .ui-menu,
+  .ui-toast {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}

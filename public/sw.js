@@ -1,7 +1,7 @@
-const CACHE_NAME = "opennotes-pwa-v1";
+const CACHE_NAME = "opennotes-pwa-v2";
 const STATIC_ASSETS = [
   "/",
-  "/index.html",
+  "/offline.html",
   "/manifest.json",
   "/favicon.svg",
   "/logo.svg",
@@ -50,9 +50,9 @@ self.addEventListener("fetch", (event) => {
           return networkResponse;
         })
         .catch(() => {
-          // If network fails and no cached asset, return cached index.html for SPA routes
+          // If network fails and no cached asset, return offline fallback page
           if (event.request.mode === "navigate") {
-            return caches.match("/index.html");
+            return caches.match("/offline.html");
           }
           return null;
         });
